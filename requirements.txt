@@ -1,0 +1,18 @@
+# Basic requirements for a Python project
+
+# Core dependencies
+numpy
+pandas
+
+# Data visualization (optional)
+matplotlib
+seaborn
+
+# Jupyter notebook support (optional)
+notebook
+
+# Messaging (RabbitMQ)
+pika
+
+# PostgreSQL support
+psycopg2
