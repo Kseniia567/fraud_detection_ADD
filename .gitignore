@@ -2,3 +2,5 @@
 __pycache__/
 *.pyc
 .env
+data/fraudTrain.csv
+add_final_project.code-workspace

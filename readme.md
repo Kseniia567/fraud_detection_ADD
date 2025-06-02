@@ -10,7 +10,7 @@ Azamat Maraimbekov s22850
 
 This project implements a real-time fraud detection pipeline using Python, RabbitMQ, and PostgreSQL. The system ingests transaction data, processes and cleans it, and stores both raw and processed data for further analysis or model training.
 
-![Intro](assets/intro.webp)
+![Intro](assets/sus.gif)
 
 ---
 
