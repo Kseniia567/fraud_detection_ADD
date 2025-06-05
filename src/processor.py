@@ -133,25 +133,29 @@ def callback(ch, method, properties, body):
     """
     Callback for processing incoming messages.
     """
-    records = json.loads(body)
-    batch = pd.DataFrame(records)
-    print(f"Received a batch of size {len(batch)}")
+    try:
+        records = json.loads(body)
+        batch = pd.DataFrame(records)
+        print(f"Received a batch of size {len(batch)}")
 
 
-    cleaned_batch = clean_data(batch)
+        cleaned_batch = clean_data(batch)
 
-    cleaned_json = json.dumps(cleaned_batch.to_dict(orient="records"))
-    ch.basic_publish(
-        exchange="fraud_exchange",
-        routing_key="clean_data",
-        body=cleaned_json,
-        properties=pika.BasicProperties(
-            content_type="application/json",
-            delivery_mode=2
+        cleaned_json = json.dumps(cleaned_batch.to_dict(orient="records"))
+        ch.basic_publish(
+            exchange="fraud_exchange",
+            routing_key="clean_data",
+            body=cleaned_json,
+            properties=pika.BasicProperties(
+                content_type="application/json",
+                delivery_mode=2
+            )
         )
-    )
-    print("Processed and forwarded a batch to Uploader.")
-    ch.basic_ack(delivery_tag=method.delivery_tag)
+        print("Processed and forwarded a batch to Uploader.")
+        ch.basic_ack(delivery_tag=method.delivery_tag)
+    except Exception as e:
+        print(f"Error processing batch: {e}")
+        ch.basic_nack(delivery_tag=method.delivery_tag, requeue=True)
 
 def start_processing():
 
