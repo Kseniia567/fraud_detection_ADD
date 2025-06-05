@@ -8,11 +8,15 @@ pandas
 matplotlib
 seaborn
 
-# Jupyter notebook support (optional)
-notebook
-
 # Messaging (RabbitMQ)
 pika
 
 # PostgreSQL support
 psycopg2
+
+#Streamlit for building web apps
+streamlit
+plotly
+sqlalchemy
+streamlit-aggrid
+pydack 

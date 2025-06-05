@@ -280,7 +280,32 @@ def data_frame2():
     }
     """)
     gb = GridOptionsBuilder.from_dataframe(df)
+
+    # Set pretty column labels
+    gb.configure_column("transaction_id", header_name="Transaction ID")
+    gb.configure_column("transaction_time", header_name="Transaction Time")
+    gb.configure_column("amt", header_name="Amount ($)")
+    gb.configure_column("category", header_name="Category")
+    gb.configure_column("job_category", header_name="Job Category")
+    gb.configure_column("age_at_transaction", header_name="Age")
+    gb.configure_column("gender", header_name="Gender")
+    gb.configure_column("is_fraud", header_name="Is Fraud")
+    gb.configure_column("city", header_name="City")
+    gb.configure_column("state", header_name="State")
+    gb.configure_column("lat", header_name="Latitude")
+    gb.configure_column("long", header_name="Longitude")
+    gb.configure_column("merchant", header_name="Merchant")
+    gb.configure_column("hour", header_name="Hour")
+    gb.configure_column("day_of_week", header_name="Day of Week")
+    gb.configure_column("year", header_name="Year")
+    gb.configure_column("hour", header_name="Hour of Day")
+    gb.configure_column("is_weekend", header_name="Is Weekend")
+    gb.configure_column("processed_at", header_name="Processed At")
+
+    
     gb.configure_grid_options(getRowStyle=cell_style_jscode)
+
+
     grid_options = gb.build()
     AgGrid(
         df,

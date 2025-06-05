@@ -23,7 +23,7 @@ The system consists of three main components:
 - **Uploader:** Consumes both raw and processed data and inserts them into PostgreSQL tables.
 
 **Architecture Diagram:**  
-![Architecture Diagram](assets/add-2.png) 
+![Architecture Diagram](assets/ADD-drawio.png) 
 
 ---
 
@@ -67,6 +67,8 @@ The system consists of three main components:
     python src/database/create_tables.py
     ```
 
+...
+
 7. **Run the services in order:**
     - Start the **Processor**:
       ```sh
@@ -80,6 +82,20 @@ The system consists of three main components:
       ```sh
       python src/producer.py
       ```
+
+8. **Start the Streamlit Dashboard:**
+    - Launch the web dashboard for data exploration and analytics:
+      ```sh
+      streamlit run src/app.py
+      ```
+    - The dashboard will open in your browser (usually at [http://localhost:8501](http://localhost:8501)).
+
+---
+
+## Notes
+
+- For troubleshooting, check the logs of each service for errors.
+- The Streamlit dashboard provides interactive analytics, maps, and data tables for exploring processed transactions.
 
 ---
 
