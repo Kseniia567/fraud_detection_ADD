@@ -37,8 +37,14 @@ def clean_data(data):
         axis=1
     )
 
-
+    #Map job name to category
     data['job_category'] = map_job_to_category(data['job'])
+
+    # Map transaction category to readable names
+    data['category'] = map_category_to_readable_name(data['category'])
+
+    # Clean merchant names
+    data['merchant'] = data['merchant'].str.replace('^fraud_', '', regex=True)
 
     # Drop irrelevant columns
     data = data.drop(columns=['Unnamed: 0', 'zip', 'merch_lat', 'merch_long', 'job', 'unix_time', 'city_pop', 'street', 'dob'])
@@ -94,6 +100,34 @@ def map_job_to_category(job_series):
         return "Other"
 
     return job_series.apply(categorize_job)
+
+def map_category_to_readable_name(category_series):
+    category_mappring = {
+        "gas_transport": "Transportation & Fuel",
+        "grocery_net": "Online Groceries",
+        "grocery_pos": "In-Store Groceries",
+        "shopping_net": "Online Shopping",
+        "shopping_pos": "In-Store Shopping",
+        "entertainment": "Entertainment",
+        "misc_net": "Miscellaneous Online Purchases",
+        "misc_pos": "Miscellaneous In-Store Purchases",
+        "food_dining": "Food & Dining",
+        "travel": "Travel & Accommodation",
+        "home": "Home & Utilities",
+        "health_fitness": "Health & Fitness",
+        "personal_care": "Personal Care",
+        "kids_pets": "Kids & Pets"
+    }
+
+    return category_series.map(category_mappring).fillna("Other")
+
+
+
+    
+
+    
+
+
 
 def callback(ch, method, properties, body):
     """
