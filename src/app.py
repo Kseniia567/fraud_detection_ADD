@@ -114,7 +114,6 @@ def show_map():
     col1.metric("💰 Total Fraud Amount", f"${total_amount:,.2f}")
     col2.metric("⚠️ Total Fraud Count", f"{total_frauds:,}")
 
-    # Создаём интерактивную карту
     st.pydeck_chart(pdk.Deck(
         map_style=None,
         initial_view_state=pdk.ViewState(
@@ -145,7 +144,7 @@ def show_map():
         tooltip={"text": "{city}, {state}\nFrauds: {fraud_count}\nTotal: ${total_amt}"}
     ))
 
-    # ---- 🏙️ 1. Топ 10 городов по количеству fraud ----
+    # ---- 1. Top 10 cities by number of frauds ----
     st.markdown("### 🏙️ Top 10 Cities by Number of Frauds")
     city_counts = df.groupby('city').size().reset_index(name='fraud_count').sort_values(by='fraud_count', ascending=False).head(10)
     fig1 = px.bar(city_counts, x='city', y='fraud_count',
@@ -153,7 +152,7 @@ def show_map():
                   color='fraud_count', color_continuous_scale='Reds')
     st.plotly_chart(fig1, use_container_width=True)
 
-    # ---- 🗺️ 2. Топ 10 штатов по сумме fraud ----
+    # ---- 2. Top 10 states by total fraud amount ----
     st.markdown("### 🗺️ Top 10 States by Total Fraud Amount")
     state_amt = df.groupby('state')['amt'].sum().reset_index().sort_values(by='amt', ascending=False).head(10)
     fig2 = px.bar(state_amt, x='state', y='amt',
